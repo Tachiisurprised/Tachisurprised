@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Una Aventura Especial Para Ti 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --rose: #FFB6C1;
+            --blush: #FFE4E8;
+            --peach: #FFDAB9;
+            --lavender: #E6E6FA;
+            --cream: #FFF5F7;
+            --gold: #FFD700;
+            --shadow: rgba(255, 182, 193, 0.3);
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--blush) 0%, var(--lavender) 50%, var(--peach) 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Decorative floating hearts background */
+        .heart-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .heart-bg::before,
+        .heart-bg::after {
+            content: '💕';
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.1;
+            animation: float 20s infinite;
+        }
+
+        .heart-bg::before {
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .heart-bg::after {
+            top: 60%;
+            right: 15%;
+            animation-delay: 5s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(10deg);
+            }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            padding: 60px 40px;
+            max-width: 550px;
+            width: 90%;
+            box-shadow: 0 30px 80px var(--shadow),
+                        0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Typography */
+        .title {
+            font-family: 'Parisienne', cursive;
+            font-size: 2.8rem;
+            color: #D8537F;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(216, 83, 127, 0.2);
+            line-height: 1.3;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% {
+                text-shadow: 2px 2px 4px rgba(216, 83, 127, 0.2);
+            }
+            50% {
+                text-shadow: 2px 2px 12px rgba(216, 83, 127, 0.4);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #8B6090;
+            margin-bottom: 40px;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #D8537F;
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+        }
+
+        /* Buttons container */
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            position: relative;
+            min-height: 80px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.9s forwards;
+        }
+
+        .btn {
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%);
+            color: white;
+            position: relative;
+            z-index: 10;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(255, 20, 147, 0.4);
+        }
+
+        .btn-yes:active {
+            transform: scale(1.05);
+        }
+
+        .btn-no {
+            background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%);
+            color: #D8537F;
+            position: absolute;
+            transition: all 0.15s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .btn-no:hover {
+            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.5);
+        }
+
+        /* Footer text */
+        .footer {
+            font-size: 0.9rem;
+            color: #8B6090;
+            font-style: italic;
+            margin-top: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1.2s forwards;
+        }
+
+        /* Success screen */
+        .success-screen {
+            display: none;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .success-screen.active {
+            display: block;
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: bounce 1s ease-out;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .success-title {
+            font-family: 'Parisienne', cursive;
+            font-size: 2.5rem;
+            color: #D8537F;
+            margin-bottom: 20px;
+        }
+
+        .success-message {
+            font-size: 1.2rem;
+            color: #8B6090;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .btn-enter {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white;
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-enter:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Confetti hearts */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 25px;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .question {
+                font-size: 1.4rem;
+            }
+
+            .btn {
+                padding: 15px 30px;
+                font-size: 1rem;
+            }
+
+            .success-title {
+                font-size: 2rem;
+            }
+
+            .success-message {
+                font-size: 1rem;
+            }
+        }
+
+        /* Calendar Screen */
+        .calendar-screen {
+            display: none;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .calendar-screen.active {
+            display: block;
+        }
+
+        .calendar-title {
+            font-family: 'Parisienne', cursive;
+            font-size: 2.5rem;
+            color: #D8537F;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(216, 83, 127, 0.2);
+        }
+
+        .calendar-container {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #D8537F;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .calendar-day-name {
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #8B6090;
+            padding: 8px 0;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            cursor: default;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-day.empty {
+            background: transparent;
+        }
+
+        .calendar-day.special {
+            background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+        }
+
+        .calendar-day.special::after {
+            content: '🎁';
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            font-size: 1.2rem;
+        }
+
+        .calendar-day.special:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.6);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Modal for clothing options */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-title {
+            font-family: 'Parisienne', cursive;
+            font-size: 2.2rem;
+            color: #D8537F;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .modal-subtitle {
+            font-size: 1rem;
+            color: #8B6090;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .outfit-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .outfit-card {
+            background: linear-gradient(135deg, var(--blush) 0%, var(--lavender) 100%);
+            border-radius: 20px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .outfit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+            border-color: #FF69B4;
+        }
+
+        .outfit-icon {
+            font-size: 3rem;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .outfit-details {
+            flex: 1;
+        }
+
+        .outfit-type {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #D8537F;
+            margin-bottom: 5px;
+        }
+
+        .outfit-description {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .modal-close {
+            background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 15px 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 25px;
+            width: 100%;
+            font-family: 'Quicksand', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.4);
+        }
+
+        @media (max-width: 600px) {
+            .calendar-container {
+                padding: 15px;
+            }
+
+            .calendar-title {
+                font-size: 2rem;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+            }
+
+            .outfit-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .outfit-icon {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-bg"></div>
+    
+    <div class="container">
+        <!-- Initial screen -->
+        <div id="initialScreen">
+            <h1 class="title">Tengo una app especial para nosotros 💖</h1>
+            <p class="subtitle">Un regalo creado con todo mi amor...</p>
+            <h2 class="question">¿Quieres aceptar ser mi vínculo aunque estemos a lo lejos y ser mi pareja de San Valentín para siempre?</h2>
+            
+            <div class="buttons" id="buttonsContainer">
+                <button class="btn btn-yes" id="btnYes">SÍ, ACEPTO 💕</button>
+                <button class="btn btn-no" id="btnNo">NO</button>
+            </div>
+            
+            <p class="footer">Creado con amor especialmente para ti 💖</p>
+        </div>
+
+        <!-- Success screen -->
+        <div class="success-screen" id="successScreen">
+            <div class="success-icon">😍</div>
+            <h1 class="success-title">¡Sabía que aceptarías Tachii!</h1>
+            <p class="success-message">
+                Yo estaré para ti, mi amor de la vida, te amo 💕<br>
+                No importa la distancia que nos separe, mi corazón siempre estará contigo.<br>
+                Eres la luz que ilumina mis días y la razón de mi sonrisa.<br>
+                Serás mi pareja de San Valentín hoy, mañana y por toda la eternidad.<br>
+                Gracias por elegir caminar a mi lado, incluso a lo lejos.<br>
+                Mi amor por ti crece cada día y traspasa cualquier frontera 💖
+            </p>
+            <button class="btn-enter" id="btnEnter">Ir al calendario de sorpresas 🎁</button>
+        </div>
+
+        <!-- Calendar screen -->
+        <div class="calendar-screen" id="calendarScreen">
+            <h1 class="calendar-title">Calendario de Sorpresas 💝</h1>
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    Marzo 2026
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Days of week -->
+                    <div class="calendar-day-name">Dom</div>
+                    <div class="calendar-day-name">Lun</div>
+                    <div class="calendar-day-name">Mar</div>
+                    <div class="calendar-day-name">Mié</div>
+                    <div class="calendar-day-name">Jue</div>
+                    <div class="calendar-day-name">Vie</div>
+                    <div class="calendar-day-name">Sáb</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for outfit options -->
+    <div class="modal" id="outfitModal">
+        <div class="modal-content">
+            <h2 class="modal-title">¡Día Especial! 💖</h2>
+            <p class="modal-subtitle">Prepárate con estas opciones de vestimenta para nuestra sorpresa:</p>
+            
+            <div class="outfit-options">
+                <div class="outfit-card">
+                    <div class="outfit-icon">👗</div>
+                    <div class="outfit-details">
+                        <div class="outfit-type">Prenda Casual</div>
+                        <div class="outfit-description">Algo cómodo y relajado para disfrutar del día</div>
+                    </div>
+                </div>
+                
+                <div class="outfit-card">
+                    <div class="outfit-icon">👔</div>
+                    <div class="outfit-details">
+                        <div class="outfit-type">Prenda Formal</div>
+                        <div class="outfit-description">Elegante y sofisticado para momentos especiales</div>
+                    </div>
+                </div>
+                
+                <div class="outfit-card">
+                    <div class="outfit-icon">👟</div>
+                    <div class="outfit-details">
+                        <div class="outfit-type">Prenda Deportiva</div>
+                        <div class="outfit-description">Lista para la acción y aventuras emocionantes</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="modal-close" id="modalClose">Entendido 💕</button>
+        </div>
+    </div>
+
+    <script>
+        // Get elements
+        const btnYes = document.getElementById('btnYes');
+        const btnNo = document.getElementById('btnNo');
+        const initialScreen = document.getElementById('initialScreen');
+        const successScreen = document.getElementById('successScreen');
+        const buttonsContainer = document.getElementById('buttonsContainer');
+
+        // Configuration
+        const EVASION_DISTANCE = 120;
+        let isMoving = false;
+
+        // Function to calculate distance between two points
+        function getDistance(x1, y1, x2, y2) {
+            return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        }
+
+        // Function to move NO button laterally (only horizontal movement)
+        function moveNoButton() {
+            if (isMoving) return;
+            isMoving = true;
+
+            const container = buttonsContainer.getBoundingClientRect();
+            const button = btnNo.getBoundingClientRect();
+            
+            // Get current button position relative to container
+            const currentLeft = parseFloat(btnNo.style.left) || 0;
+            
+            // Calculate safe horizontal boundaries
+            const minLeft = -150; // Can go left outside container
+            const maxLeft = container.width - button.width + 150; // Can go right outside container
+            
+            // Generate new horizontal position (opposite side logic)
+            let newLeft;
+            if (currentLeft < container.width / 2) {
+                // If on left side, jump to right side
+                newLeft = (container.width / 2) + Math.random() * (maxLeft - container.width / 2);
+            } else {
+                // If on right side, jump to left side
+                newLeft = minLeft + Math.random() * (container.width / 2 - minLeft);
+            }
+            
+            // Apply new horizontal position (vertical stays the same)
+            btnNo.style.left = newLeft + 'px';
+            
+            setTimeout(() => {
+                isMoving = false;
+            }, 200);
+        }
+
+        // Track mouse movement continuously
+        document.addEventListener('mousemove', (e) => {
+            if (successScreen.classList.contains('active')) return;
+
+            const button = btnNo.getBoundingClientRect();
+            const buttonCenterX = button.left + button.width / 2;
+            const buttonCenterY = button.top + button.height / 2;
+            
+            const distance = getDistance(e.clientX, e.clientY, buttonCenterX, buttonCenterY);
+            
+            // Move button if cursor gets too close
+            if (distance < EVASION_DISTANCE) {
+                moveNoButton();
+            }
+        });
+
+        // Track touch movement on mobile
+        document.addEventListener('touchmove', (e) => {
+            if (successScreen.classList.contains('active')) return;
+            
+            const touch = e.touches[0];
+            const button = btnNo.getBoundingClientRect();
+            const buttonCenterX = button.left + button.width / 2;
+            const buttonCenterY = button.top + button.height / 2;
+            
+            const distance = getDistance(touch.clientX, touch.clientY, buttonCenterX, buttonCenterY);
+            
+            if (distance < EVASION_DISTANCE) {
+                moveNoButton();
+            }
+        });
+
+        // Prevent hover
+        btnNo.addEventListener('mouseenter', (e) => {
+            moveNoButton();
+        });
+
+        // Prevent touch
+        btnNo.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        // Prevent click
+        btnNo.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            moveNoButton();
+        });
+
+        // Prevent focus
+        btnNo.addEventListener('focus', (e) => {
+            moveNoButton();
+        });
+
+        // Disable pointer events when cursor is very close
+        let pointerTimeout;
+        document.addEventListener('mousemove', (e) => {
+            if (successScreen.classList.contains('active')) return;
+            
+            const button = btnNo.getBoundingClientRect();
+            const buttonCenterX = button.left + button.width / 2;
+            const buttonCenterY = button.top + button.height / 2;
+            
+            const distance = getDistance(e.clientX, e.clientY, buttonCenterX, buttonCenterY);
+            
+            if (distance < 60) {
+                btnNo.style.pointerEvents = 'none';
+                clearTimeout(pointerTimeout);
+                pointerTimeout = setTimeout(() => {
+                    btnNo.style.pointerEvents = 'auto';
+                }, 300);
+            }
+        });
+
+        // YES button - always works
+        btnYes.addEventListener('click', () => {
+            createConfetti();
+            
+            setTimeout(() => {
+                initialScreen.style.display = 'none';
+                successScreen.classList.add('active');
+            }, 1000);
+        });
+
+        // Enter button - show calendar
+        document.getElementById('btnEnter').addEventListener('click', () => {
+            successScreen.classList.remove('active');
+            document.getElementById('calendarScreen').classList.add('active');
+            generateCalendar();
+        });
+
+        // Generate March 2026 calendar
+        function generateCalendar() {
+            const calendarGrid = document.getElementById('calendarGrid');
+            
+            // March 2026 starts on Sunday (day 0)
+            const firstDay = 0; // Sunday
+            const daysInMonth = 31;
+            
+            // The third Sunday is March 15, 2026
+            const specialDay = 15;
+            
+            // Add empty cells for days before the 1st
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'calendar-day empty';
+                calendarGrid.appendChild(emptyDay);
+            }
+            
+            // Add days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                dayElement.textContent = day;
+                
+                // Mark the special day (third Sunday - March 15)
+                if (day === specialDay) {
+                    dayElement.classList.add('special');
+                    dayElement.addEventListener('click', () => {
+                        showOutfitModal();
+                    });
+                }
+                
+                calendarGrid.appendChild(dayElement);
+            }
+        }
+
+        // Show outfit modal
+        function showOutfitModal() {
+            const modal = document.getElementById('outfitModal');
+            modal.classList.add('active');
+            createConfetti();
+        }
+
+        // Close modal
+        document.getElementById('modalClose').addEventListener('click', () => {
+            document.getElementById('outfitModal').classList.remove('active');
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('outfitModal').addEventListener('click', (e) => {
+            if (e.target.id === 'outfitModal') {
+                document.getElementById('outfitModal').classList.remove('active');
+            }
+        });
+
+        // Confetti animation
+        function createConfetti() {
+            const hearts = ['💕', '💖', '💗', '💓', '💝', '❤️', '💘'];
+            const confettiCount = 50;
+
+            for (let i = 0; i < confettiCount; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-10px';
+                    confetti.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                    confetti.style.position = 'fixed';
+                    
+                    document.body.appendChild(confetti);
+
+                    const duration = Math.random() * 2 + 2;
+                    const xMovement = (Math.random() - 0.5) * 200;
+                    
+                    confetti.animate([
+                        { 
+                            transform: 'translateY(0) translateX(0) rotate(0deg)', 
+                            opacity: 1 
+                        },
+                        { 
+                            transform: `translateY(100vh) translateX(${xMovement}px) rotate(${Math.random() * 720}deg)`, 
+                            opacity: 0 
+                        }
+                    ], {
+                        duration: duration * 1000,
+                        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                    });
+
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, duration * 1000);
+                }, i * 50);
+            }
+        }
+
+        // Initialize button position
+        window.addEventListener('load', () => {
+            btnNo.style.position = 'absolute';
+            btnNo.style.left = '0px';
+            btnNo.style.top = '0px';
+        });
+    </script>
+</body>
+</html>
